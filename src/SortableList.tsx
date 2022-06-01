@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, Dispatch, SetStateAction } from 'react'
 
 enum Position {
   before = 0,
@@ -144,4 +144,22 @@ export function SortableList<T>(props: SortableListProps<T>) {
       )}
     </div>
   )
+}
+
+export function createSortHandler<T>(setItems: Dispatch<SetStateAction<T[]>>) {
+  return (sourceIndex: number, targetIndex: number) => {
+    if (sourceIndex === targetIndex) {
+      return
+    }
+
+    setItems(originItems => {
+      const items = originItems.slice()
+      const item = items[sourceIndex]
+
+      items.splice(sourceIndex, 1)
+      items.splice(targetIndex, 0, item)
+
+      return items
+    })
+  }
 }

@@ -1,5 +1,5 @@
-import React, { Dispatch, SetStateAction, useCallback, useMemo, useState } from 'react'
-import { SortableList, SortableItemProps } from './SortableList'
+import React, { useCallback, useMemo, useState } from 'react'
+import { SortableList, SortableItemProps, createSortHandler } from './SortableList'
 
 const itemStyle = {
   padding: '20px 10px',
@@ -51,22 +51,6 @@ const createPreset = () => [
   { title: 'item #5'},
 ]
 
-const createSortHandler = (setItems: Dispatch<SetStateAction<Item[]>>) => (sourceIndex: number, targetIndex: number) => {
-  if (sourceIndex === targetIndex) {
-    return
-  }
-
-  setItems(originItems => {
-    const items = originItems.slice()
-    const item = items[sourceIndex]
-
-    items.splice(sourceIndex, 1)
-    items.splice(targetIndex, 0, item)
-
-    return items
-  })
-}
-
 const verticalListStyle: React.CSSProperties = {
   background: '#ccc',
   padding: '10px',
@@ -78,7 +62,7 @@ const verticalListStyle: React.CSSProperties = {
 
 export const Vertical = () => {
   const [items, setItems] = useState<Item[]>(createPreset())
-  const sortHandler = useMemo(() => createSortHandler(setItems), [setItems])
+  const sortHandler = useMemo(() => createSortHandler<Item>(setItems), [setItems])
   const computeKey = useCallback((item) => item.title, [])
 
   return (
@@ -99,7 +83,7 @@ const horizontalListStyle: React.CSSProperties = {
 
 export const Horizontal = () => {
   const [items, setItems] = useState<Item[]>(createPreset())
-  const sortHandler = useMemo(() => createSortHandler(setItems), [setItems])
+  const sortHandler = useMemo(() => createSortHandler<Item>(setItems), [setItems])
   const computeKey = useCallback((item) => item.title, [])
 
   return (
