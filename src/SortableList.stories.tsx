@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useCallback, useState } from 'react'
+import React, { Dispatch, SetStateAction, useCallback, useMemo, useState } from 'react'
 import { SortableList, SortableItemProps } from './SortableList'
 
 const itemStyle = {
@@ -78,7 +78,7 @@ const verticalListStyle: React.CSSProperties = {
 
 export const Vertical = () => {
   const [items, setItems] = useState<Item[]>(createPreset())
-  const sortHandler = useCallback(() => createSortHandler(setItems), [setItems])
+  const sortHandler = useMemo(() => createSortHandler(setItems), [setItems])
   const computeKey = useCallback((item) => item.title, [])
 
   return (
@@ -99,7 +99,7 @@ const horizontalListStyle: React.CSSProperties = {
 
 export const Horizontal = () => {
   const [items, setItems] = useState<Item[]>(createPreset())
-  const sortHandler = useCallback(() => createSortHandler(setItems), [setItems])
+  const sortHandler = useMemo(() => createSortHandler(setItems), [setItems])
   const computeKey = useCallback((item) => item.title, [])
 
   return (
