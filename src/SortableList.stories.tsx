@@ -17,10 +17,10 @@ function ItemHorizontalComponent(props: SortableItemProps<Item>) {
   return (
     <div
       style={{
+        ...itemStyle,
         opacity: isDragged ? '0.3' : undefined,
         borderLeftColor: isDragItemInsertBefore ? 'yellow' : undefined,
         borderRightColor: isDragItemInsertAfter ? 'yellow' : undefined,
-        ...itemStyle
       }}>
         {item.title}
     </div>
@@ -33,10 +33,10 @@ function ItemVerticalComponent(props: SortableItemProps<Item>) {
   return (
     <div
       style={{
+        ...itemStyle,
         opacity: isDragged ? '0.3' : undefined,
         borderTopColor: isDragItemInsertBefore ? 'yellow' : undefined,
         borderBottomColor: isDragItemInsertAfter ? 'yellow' : undefined,
-        ...itemStyle
       }}>
         {item.title}
     </div>
