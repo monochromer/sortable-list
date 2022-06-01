@@ -61,7 +61,7 @@ const createSortHandler = (setItems: Dispatch<SetStateAction<Item[]>>) => (sourc
     const item = items[sourceIndex]
 
     items.splice(sourceIndex, 1)
-    items.splice(targetIndex, 0 ,item)
+    items.splice(targetIndex, 0, item)
 
     return items
   })
