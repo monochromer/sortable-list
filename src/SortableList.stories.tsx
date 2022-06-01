@@ -79,9 +79,10 @@ const verticalListStyle: React.CSSProperties = {
 export const Vertical = () => {
   const [items, setItems] = useState<Item[]>(createPreset())
   const sortHandler = useCallback(() => createSortHandler(setItems), [setItems])
+  const computeKey = useCallback((item) => item.title, [])
 
   return (
-    <SortableList style={verticalListStyle} items={items} onSort={sortHandler} direction='vertical'>
+    <SortableList style={verticalListStyle} items={items} onSort={sortHandler} direction='vertical' computeKey={computeKey}>
       {props => <ItemVerticalComponent {...props} />}
     </SortableList>
   )
@@ -99,9 +100,10 @@ const horizontalListStyle: React.CSSProperties = {
 export const Horizontal = () => {
   const [items, setItems] = useState<Item[]>(createPreset())
   const sortHandler = useCallback(() => createSortHandler(setItems), [setItems])
+  const computeKey = useCallback((item) => item.title, [])
 
   return (
-    <SortableList style={horizontalListStyle} items={items} onSort={sortHandler} direction='horizontal'>
+    <SortableList style={horizontalListStyle} items={items} onSort={sortHandler} direction='horizontal' computeKey={computeKey}>
       {props => <ItemHorizontalComponent {...props} />}
     </SortableList>
   )

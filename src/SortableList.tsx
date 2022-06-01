@@ -22,6 +22,7 @@ export interface SortableListProps<T> {
   style?: React.CSSProperties
   children: (props: SortableItemProps<T>, index: number) => React.ReactElement
   onSort: (sourceIndex: number, targetIndex: number) => void
+  computeKey: (item: T) => React.Key
 }
 
 const shouldInsertBefore = (sourceIndex: number | null, targetIndex: number | null, index: number) => {
@@ -96,7 +97,7 @@ export function SortableList<T>(props: SortableListProps<T>) {
   const [hoveredItem, setHoveredItem] = useState<number| null>(null)
   const [targetIndex, setTargetIndex] = useState<number | null>(null)
 
-  const { items, direction = 'vertical', className, style, onSort } = props
+  const { items, direction = 'vertical', className, style, onSort, computeKey } = props
 
   useDragPreventAnimation(sourceIndex)
 
@@ -105,7 +106,7 @@ export function SortableList<T>(props: SortableListProps<T>) {
       {items.map((item, index) =>
         <div
           draggable
-          key={index}
+          key={computeKey ? computeKey(item) : index}
           onDragStart={() => setSourceIndex(index)}
           onDragEnter={() => setHoveredItem(index)}
           onDragOver={(e) => {
